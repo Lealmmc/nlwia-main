@@ -1,0 +1,84 @@
+/* Estilos para o formulário */
+#form {
+  margin-top: 32px; /* Reduz o espaçamento superior */
+  display: flex;
+  gap: 8px; /* Reduz o espaçamento entre os inputs e o botão */
+}
+
+#form > input {
+  height: 40px; /* Reduz a altura do input */
+  width: 400px; /* Reduz a largura do input */
+  border: none;
+  color: #fff;
+  background-color: #202024;
+  border-radius: 5px;
+  padding: 0 10px; /* Reduz o padding interno */
+  font-size: 14px; /* Reduz o tamanho da fonte */
+}
+
+#form > input:focus {
+  outline: 2px solid #ebebeb;
+}
+
+#form > input:valid {
+  background-color: #202024;
+}
+
+#form > button {
+  height: 40px; /* Reduz a altura do botão */
+  width: 40px; /* Reduz a largura do botão */
+  border: none;
+  border-radius: 5px;
+  background-color: #cc00ff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#form > button:hover {
+  background-color: #ff0000;
+}
+
+#form > button i {
+  font-size: 20px; /* Reduz o tamanho do ícone */
+  color: #fff;
+}
+
+/* Estilos para o SVG logo2 */
+.svg-container {
+  text-align: center; /* Mantém o SVG centralizado */
+  margin-top: 10px; /* Reduz o espaçamento acima do SVG */
+}
+
+#logo2 {
+  width: 300px; /* Ajusta a largura do SVG */
+    height: auto; /* Mantém a proporção do SVG */
+  transform: translateY(20px); /* Ajusta a posição do SVG para baixo */
+}
+
+/* Exemplo de estilos para dark-mode */
+body.dark-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.dark-mode #form > input {
+  background-color: #333;
+}
+
+body.dark-mode #form > button {
+  background-color: #6200ea;
+}
+#video-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px; /* Largura do quadrado */
+  height: 180px; /* Altura do quadrado */
+  background: #000; /* Cor de fundo */
+  display: none; /* Inicialmente oculto */
+}
+
+#video {
+  width: 100%;
+  height: 100%;
+}

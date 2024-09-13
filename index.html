@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <title>Shorts Summary</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Estilo para o botão de exibição do vídeo */
+    #show-video-button {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      padding: 10px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 1000;
+      font-size: 24px;
+    }
+
+    /* Estilo para o iframe em tela cheia */
+    #video-fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente */
+      display: none; /* Inicialmente oculto */
+      align-items: center;
+      justify-content: center;
+      z-index: 1000; /* Certifica-se de que está sobre outros elementos */
+    }
+
+    #video-fullscreen iframe {
+      width: 80vw; /* Largura do vídeo */
+      height: 80vh; /* Altura do vídeo */
+    }
+  </style>
+</head>
+<body>
+  <button id="toggleMode" title="Alternar Modo">
+    <i class="ph ph-lightbulb"></i>
+  </button>
+  <button id="show-video-button" title="Mostrar Vídeo">
+    <i class="ph ph-video"></i>
+  </button>
+  <div id="app">
+    <img src="/logo2.svg" alt="Logo" />
+    <h1>𝒮𝒽𝑜𝓇𝓉𝓈 𝒮𝓊𝓂𝓂𝒶𝓇𝓎</h1>
+    <form id="form">
+      <input type="url" id="url" placeholder="URL do vídeo" />
+      <button type="submit" title="Resumir">
+        <i class="ph ph-play"></i>
+      </button>
+    </form>
+    <h2>Resumo</h2>
+    <p id="content" class="placeholder">Escolha um short para resumir</p>
+    <!-- SVG logo2 -->
+    <div class="svg-container">
+      <svg id="logo2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+        <!-- Adicione o conteúdo do SVG aqui -->
+      </svg>
+    </div>
+  </div>
+
+  <!-- Contêiner para o vídeo em tela cheia -->
+  <div id="video-fullscreen">
+    <iframe id="video" src="" frameborder="0" allowfullscreen></iframe>
+  </div>
+
+  <script type="module" src="web/main.js"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script>
+    // Lógica para alternar entre modo claro e escuro
+    const toggleButton = document.getElementById('toggleMode');
+    const body = document.body;
+
+    toggleButton.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        toggleButton.classList.add('active');
+      } else {
+        toggleButton.classList.remove('active');
+      }
+    });
+
+    // Lógica para exibir o vídeo a partir do URL fornecido
+    document.getElementById('form').addEventListener('submit', function(event) {
+      event.preventDefault(); // Impede o envio padrão do formulário
+
+      const url = document.getElementById('url').value;
+      const videoId = extractVideoId(url);
+
+      if (videoId) {
+        const iframe = document.getElementById('video');
+        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+      } else {
+        alert('URL inválido ou vídeo não encontrado.');
+      }
+    });
+
+    // Função para extrair o ID do vídeo do URL
+    function extractVideoId(url) {
+      const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|v\/|.*?v=)|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/|youtube\.com\/watch\?v=|youtube\.com\/watch\?v%3D|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/;
+      const match = url.match(regex);
+      return match ? match[1] : null;
+    }
+
+    // Lógica para mostrar o vídeo em tela cheia
+    document.getElementById('show-video-button').addEventListener('click', () => {
+      const videoFullscreen = document.getElementById('video-fullscreen');
+      videoFullscreen.style.display = videoFullscreen.style.display === 'none' ? 'flex' : 'none';
+    });
+
+    // Fechar o vídeo ao clicar fora do iframe
+    document.getElementById('video-fullscreen').addEventListener('click', (event) => {
+      if (event.target === event.currentTarget) {
+        event.currentTarget.style.display = 'none';
+        document.getElementById('video').src = ''; // Limpar o src para parar o vídeo
+      }
+    });
+  </script>
+</body>
+</html>
