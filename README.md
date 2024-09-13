@@ -1,5 +1,4 @@
 
-Claro! Aqui está um exemplo de README para o seu projeto de site:
 
 Shorts Summary
 Descrição
